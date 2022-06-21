@@ -13,19 +13,16 @@ class HomePLC1(PLC):
 
         temperature = 37
         self.set(TEMP_SENSOR, temperature)
+        time.sleep(sleep)
 
     def main_loop(self):
         print('DEBUG: plc1 in main loop')
 
         count = 0 
-        while True:
+        while count < CYCLES:
             temperature = self.get(TEMP_SENSOR)
-            self.send(TEMP_SENSOR, PLC1_ADDR)
-            print(temperature)
-
-            if count >= CYCLES:
-                print('DEBUG: plc1 shutdown')
-                break
+            self.send(TEMP_SENSOR, temperature, PLC1_ADDR)
+            # print(temperature)
 
             count += 1
 

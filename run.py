@@ -22,9 +22,9 @@ class HomeCPS(MiniCPS):
         plc1, plc2, plc3 = self.net.get(
             'plc1', 'plc2', 'plc3')
 
-        # plc2.cmd(sys.executable + ' plc2.py &')
+        plc1.cmd(sys.executable + ' plc1.py &')
+        plc2.cmd(sys.executable + ' plc2.py &')
         # plc3.cmd(sys.executable + ' plc3.py &')
-        # plc1.cmd(sys.executable + ' plc1.py &')
 
         CLI(self.net)
 
