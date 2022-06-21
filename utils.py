@@ -1,5 +1,15 @@
 # from minicps.utils import build_debug_logger
 
+# home = build_debug_logger(
+#     name=__name__,
+#     bytes_per_file=10000,
+#     rotating_files=2,
+#     lformat='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+#     ldir='logs/',
+#     suffix='')
+
+CYCLES = 1
+
 IP = {
     'plc1': '10.0.0.1',
     'plc2': '10.0.0.2',
