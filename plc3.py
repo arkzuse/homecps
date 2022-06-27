@@ -6,7 +6,7 @@ from utils import *
 AC_STATE = ('AC_STATE', 3)
 AC_TEMP = ('AC_TEMP', 3)
 
-SENSOR_TEMP_3 = ('SENSOR_TEMP', 3)
+TEMP_SENSOR_3 = ('TEMP_SENSOR', 1)
 
 
 class HomePLC3(PLC):
@@ -21,18 +21,18 @@ class HomePLC3(PLC):
         count = 0
         while count < CYCLES:
 
-            ac_state = self.get(AC_STATE)
-            ac_temp = self.get(AC_TEMP)
+            temperature = self.receive(TEMP_SENSOR_3, PLC1_ADDR)
+            temperature = int(self.get(TEMP_SENSOR_3))
 
-            temperature = self.receive(SENSOR_TEMP_3, PLC1_ADDR)
-
-            if 16 <= temperature >= 28:
-                ac_state = 1
+            if 16 <= temperature <= 28:
+                ac_state = 0
             else:
-                ac_state = 0 
+                ac_state = 1 
+            
+            print('TEMPERATURE: {}'.format(temperature))
             
             if ac_state:
-                if 28 <= temperature >= 35:
+                if 28 <= temperature <= 35:
                     ac_temp = temperature - 10;
                 elif temperature > 35:
                     ac_temp = 16
@@ -45,3 +45,14 @@ class HomePLC3(PLC):
             self.set(AC_TEMP, ac_temp)
 
             count += 1
+
+
+if __name__ == '__main__':
+
+    plc1 = HomePLC3(
+        name = 'plc3',
+        state = STATE,
+        protocol = PLC3_PROTOCOL,
+        memory = PLC3_DATA,
+        disk = PLC3_DATA
+    )

@@ -1,13 +1,15 @@
 import time
+from typing import Protocol
 from minicps.devices import PLC
+from run import HomeCPS
 
 from utils import *
 
 CURTAIN = ('CURTAIN', 2)
 WINDOW = ('WINDOW', 2)
-TEMP_SENSOR_2 = ('TEMP_SENSOR', 2)
+TEMP_SENSOR_2 = ('TEMP_SENSOR', 1)
 
-class HomePLC1(PLC):
+class HomePLC2(PLC):
 
     def pre_loop(self, sleep=0.2):
         print('DEBUG: plc2 in pre loop')
@@ -18,11 +20,8 @@ class HomePLC1(PLC):
 
         count = 0
         while count < CYCLES:
-            curtain = self.get('CURTAIN')
-            window = self.get('WINDOW')
-
             temperature = self.receive(TEMP_SENSOR_2, PLC1_ADDR)
-            print(temperature)
+            temperature = int(self.get(TEMP_SENSOR_2))
 
             if 16 <= temperature <= 28:
                 window = 1
@@ -39,3 +38,12 @@ class HomePLC1(PLC):
 
             count += 1
 
+if __name__ == '__main__':
+
+    plc1 = HomePLC2(
+        name = 'plc2',
+        state = STATE,
+        protocol = PLC2_PROTOCOL,
+        memory = PLC2_DATA,
+        disk = PLC2_DATA
+    )

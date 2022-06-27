@@ -24,7 +24,7 @@ class HomeCPS(MiniCPS):
 
         plc1.cmd(sys.executable + ' plc1.py &')
         plc2.cmd(sys.executable + ' plc2.py &')
-        # plc3.cmd(sys.executable + ' plc3.py &')
+        plc3.cmd(sys.executable + ' plc3.py &')
 
         CLI(self.net)
 

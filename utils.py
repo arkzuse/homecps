@@ -23,21 +23,21 @@ MAC = {
 }
 
 PLC1_DATA = {
-    'TEMP_SENSOR': '25',
+    'TEMP_SENSOR': '25'
 }
 PLC2_DATA = {
     'CURTAIN': '0',
-    'WINDOW': '0'
+    'WINDOW': '0',
 }
 PLC3_DATA = {
     'AC_STATE': '0',
-    'AC_TEMP': '25'
+    'AC_TEMP': '25',
 }
 
 
 PLC1_ADDR = IP['plc1']
 PLC1_TAGS = (
-    ('TEMP_SENSOR', 25, 'INT')
+    ('TEMP_SENSOR', 1, 'INT')
 )
 PLC1_SERVER = {
     'address': PLC1_ADDR,
@@ -51,8 +51,8 @@ PLC1_PROTOCOL = {
 
 PLC2_ADDR = IP['plc2']
 PLC2_TAGS = (
-    ('CURTAIN', 0, 'INT'),
-    ('WINDOW', 0, 'INT')
+    ('CURTAIN', 2, 'INT'),
+    ('WINDOW', 2, 'INT')
 )
 PLC2_SERVER = {
     'address': PLC2_ADDR,
@@ -66,8 +66,8 @@ PLC2_PROTOCOL = {
 
 PLC3_ADDR = IP['plc3']
 PLC3_TAGS = (
-    ('AC_STATE', 0, 'INT'),
-    ('AC_TEMP', 25, 'INT')
+    ('AC_STATE', 3, 'INT'),
+    ('AC_TEMP', 3, 'INT')
 )
 PLC3_SERVER = {
     'address': PLC3_ADDR,
@@ -99,9 +99,9 @@ SCHEMA = """
 """
 
 SCHEMA_INIT = """
-    INSERT INTO homecps_table VALUES ('TEMP_SENSOR', 1, 'int', '25');
-    INSERT INTO homecps_table VALUES ('CURTAIN', 2, 'int', '0');
-    INSERT INTO homecps_table VALUES ('WINDOW', 2, 'int', '0');
-    INSERT INTO homecps_table VALUES ('AC_STATE', 3, 'int', '0');
-    INSERT INTO homecps_table VALUES ('AC_TEMP', 3, 'int', '25');
+    INSERT INTO homecps_table VALUES ('TEMP_SENSOR', 1, 'int', '37');
+    INSERT INTO homecps_table VALUES ('CURTAIN', 2, 'int', '1');
+    INSERT INTO homecps_table VALUES ('WINDOW', 2, 'int', '1');
+    INSERT INTO homecps_table VALUES ('AC_STATE', 3, 'int', '1');
+    INSERT INTO homecps_table VALUES ('AC_TEMP', 3, 'int', '27');
 """

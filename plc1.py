@@ -11,7 +11,7 @@ class HomePLC1(PLC):
     def pre_loop(self, sleep=0.1):
         print('DEBUG: plc1 in preloop')
 
-        temperature = 37
+        temperature = 40
         self.set(TEMP_SENSOR, temperature)
         time.sleep(sleep)
 
