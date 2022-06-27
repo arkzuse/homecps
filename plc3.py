@@ -15,7 +15,7 @@ class HomePLC3(PLC):
         print('DEBUG: plc3 in pre loop')
         time.sleep(sleep)
 
-    def main_loop(self):
+    def main_loop(self, sleep=0.5):
         print('DEBUG: plc3 in main loop')
 
         count = 0
@@ -45,6 +45,7 @@ class HomePLC3(PLC):
             self.set(AC_TEMP, ac_temp)
 
             count += 1
+            time.sleep(sleep)
 
 
 if __name__ == '__main__':
