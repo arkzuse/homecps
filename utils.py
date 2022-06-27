@@ -99,9 +99,9 @@ SCHEMA = """
 """
 
 SCHEMA_INIT = """
-    INSERT INTO homecps_table VALUES ('TEMP_SENSOR', 1, 'int', '37');
-    INSERT INTO homecps_table VALUES ('CURTAIN', 2, 'int', '1');
-    INSERT INTO homecps_table VALUES ('WINDOW', 2, 'int', '1');
-    INSERT INTO homecps_table VALUES ('AC_STATE', 3, 'int', '1');
-    INSERT INTO homecps_table VALUES ('AC_TEMP', 3, 'int', '27');
+    INSERT INTO homecps_table VALUES ('TEMP_SENSOR', 1, 'int', '25');
+    INSERT INTO homecps_table VALUES ('CURTAIN', 2, 'int', '0');
+    INSERT INTO homecps_table VALUES ('WINDOW', 2, 'int', '0');
+    INSERT INTO homecps_table VALUES ('AC_STATE', 3, 'int', '0');
+    INSERT INTO homecps_table VALUES ('AC_TEMP', 3, 'int', '25');
 """
