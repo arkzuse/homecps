@@ -8,7 +8,7 @@
 #     ldir='logs/',
 #     suffix='')
 
-CYCLES = 1
+CYCLES = 10
 
 IP = {
     'plc1': '10.0.0.1',

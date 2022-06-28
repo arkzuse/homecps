@@ -27,6 +27,8 @@ if __name__ == '__main__':
                 '# RANDOM TEMPERATURE 12 42   <- EXAMPLE\n',
                 'RANDOM TEMPERATURE 12 42'
                 ])
+        
+        f.close()
 
         print('room_temp.config created.')
    

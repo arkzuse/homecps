@@ -1,3 +1,5 @@
+from datetime import datetime
+import logging
 import time
 from minicps.devices import PLC
 
@@ -6,6 +8,8 @@ from utils import *
 AC_STATE = ('AC_STATE', 3)
 AC_TEMP = ('AC_TEMP', 3)
 
+CURTAIN_3 = ('CURTAIN', 2)
+WINDOW_3 = ('WINDOW', 2)
 TEMP_SENSOR_3 = ('TEMP_SENSOR', 1)
 
 
@@ -40,12 +44,28 @@ class HomePLC3(PLC):
                     ac_temp = temperature + 10
                 elif temperature < 15:
                     ac_temp = 30
+                
+                self.set(AC_TEMP, ac_temp)
 
             self.set(AC_STATE, ac_state)
-            self.set(AC_TEMP, ac_temp)
 
             count += 1
             time.sleep(sleep)
+
+            self.log_stats()
+
+
+    def log_stats(self):
+        t = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
+        with open('logs/stats.log', 'a') as f:
+            f.write('{}\t'.format(t))
+            f.write('Room_temperature: {}  '.format(self.get(TEMP_SENSOR_3)))
+            f.write('Curtain: {}  '.format(self.get(CURTAIN_3)))
+            f.write('Window: {}  '.format(self.get(WINDOW_3)))
+            f.write('AC state: {}  '.format(self.get(AC_STATE)))
+            f.write('AC temperature: {}\n'.format(self.get(AC_TEMP)))
+        f.close()
+
 
 
 if __name__ == '__main__':

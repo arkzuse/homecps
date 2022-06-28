@@ -16,7 +16,7 @@ class HomePLC1(PLC):
         # self.set(TEMP_SENSOR, temperature)
         time.sleep(sleep)
 
-    def main_loop(self, sleep=0.5):
+    def main_loop(self, sleep=0.4):
         print('DEBUG: plc1 in main loop')
 
         count = 0 
@@ -45,6 +45,8 @@ class HomePLC1(PLC):
                     return int(s[-1])
                 elif s[0] == 'RANDOM':
                     return random.randint(int(s[-2]), int(s[-1]))
+
+        f.close()
 
 
         
