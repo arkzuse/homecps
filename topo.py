@@ -30,3 +30,10 @@ class HomeTopo(Topo):
             mac = MAC['plc3']
         )
         self.addLink(plc3, switch)
+
+        attacker = self.addHost(
+            'attacker',
+            ip = ATTACKER_ADDR,
+            mac = MAC['attacker']
+        )
+        self.addLink(attacker, switch)

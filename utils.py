@@ -8,19 +8,29 @@
 #     ldir='logs/',
 #     suffix='')
 
-CYCLES = 10
+#set CYCLES = 0 for infinite loop
+CYCLES = 0
+# CYCLES = 100000
 
 IP = {
     'plc1': '10.0.0.1',
     'plc2': '10.0.0.2',
-    'plc3': '10.0.0.3'
+    'plc3': '10.0.0.3',
+    'attacker': '10.0.0.4',
 }
 
 MAC = {
     'plc1': '00.1A.2B.C7.BA.01',
     'plc2': '00.1A.2B.C7.BB.02',
-    'plc3': '00.1A.2B.C7.BC.03'
+    'plc3': '00.1A.2B.C7.BC.03',
+    'attacker': '00.1A.2B.C7.BD.04',
 }
+
+#modbus server port
+PLC1_PORT = '502'
+PLC2_PORT = '502'
+PLC3_PORT = '502'
+ATTACKER_PORT = '502'
 
 PLC1_DATA = {
     'TEMP_SENSOR': '25'
@@ -36,72 +46,76 @@ PLC3_DATA = {
 
 
 PLC1_ADDR = IP['plc1']
-PLC1_TAGS = (
-    ('TEMP_SENSOR', 1, 'INT')
-)
+PLC1_TAGS = (10, 10, 10, 10)
+
 PLC1_SERVER = {
     'address': PLC1_ADDR,
     'tags': PLC1_TAGS
 }
 PLC1_PROTOCOL = {
-    'name': 'enip',
+    'name': 'modbus',
     'mode': 1,
     'server': PLC1_SERVER
 }
 
 PLC2_ADDR = IP['plc2']
-PLC2_TAGS = (
-    ('CURTAIN', 2, 'INT'),
-    ('WINDOW', 2, 'INT')
-)
+PLC2_TAGS = (10, 10, 10, 10)
 PLC2_SERVER = {
     'address': PLC2_ADDR,
     'tags': PLC2_TAGS
 }
 PLC2_PROTOCOL = {
-    'name': 'enip',
+    'name': 'modbus',
     'mode': 1,
     'server': PLC2_SERVER
 }
 
 PLC3_ADDR = IP['plc3']
-PLC3_TAGS = (
-    ('AC_STATE', 3, 'INT'),
-    ('AC_TEMP', 3, 'INT')
-)
+PLC3_TAGS = (10, 10, 10, 10)
 PLC3_SERVER = {
     'address': PLC3_ADDR,
     'tags': PLC3_TAGS
 }
 PLC3_PROTOCOL = {
-    'name': 'enip',
+    'name': 'modbus',
     'mode': 1,
     'server': PLC3_SERVER
 }
 
+ATTACKER_ADDR = IP['attacker']
 
+
+NAME = 'homecps_db'
 PATH = 'homecps_db.sqlite'
-NAME = 'homecps_table'
 
 STATE = {
     'name': NAME,
     'path': PATH
 }
 
-SCHEMA = """
-    CREATE TABLE homecps_table (
-        name    TEXT NOT NULL,
-        pid     INTEGER NOT NULL,
-        datatype    TEXT NOT NULL,
-        value   TEXT,
-        PRIMARY KEY (name, pid)
-    );
+
+'''
+('HR', 0, 'plc1', '25') : TEMPERATURE_SENSOR
+('HR', 0, 'plc2', '0')  : CURTAIN 
+('HR', 1, 'plc2', '0')  : WINDOW
+('HR', 0, 'plc3', '0')  : AC_STATE
+('HR', 1, 'plc3', '25') : AC_TEMPERATURE
+'''
+
+SCHEMA = """ 
+CREATE TABLE homecps_db (
+    type              TEXT NOT NULL,
+    offset            INT  NOT NULL,
+    pid               TEXT  NOT NULL,
+    value             TEXT,
+    PRIMARY KEY (type, offset, pid)
+);
 """
 
 SCHEMA_INIT = """
-    INSERT INTO homecps_table VALUES ('TEMP_SENSOR', 1, 'int', '25');
-    INSERT INTO homecps_table VALUES ('CURTAIN', 2, 'int', '0');
-    INSERT INTO homecps_table VALUES ('WINDOW', 2, 'int', '0');
-    INSERT INTO homecps_table VALUES ('AC_STATE', 3, 'int', '0');
-    INSERT INTO homecps_table VALUES ('AC_TEMP', 3, 'int', '25');
+    INSERT INTO homecps_db VALUES ('HR', 0, 'plc1', '25');
+    INSERT INTO homecps_db VALUES ('HR', 0, 'plc2', '0');
+    INSERT INTO homecps_db VALUES ('HR', 1, 'plc2', '0');
+    INSERT INTO homecps_db VALUES ('HR', 0, 'plc3', '0');
+    INSERT INTO homecps_db VALUES ('HR', 1, 'plc3', '25');
 """
