@@ -4,29 +4,33 @@ from minicps.devices import PLC
 
 from utils import *
 
-TEMP_SENSOR = ('TEMP_SENSOR', 1)
-
+TEMP_SENSOR = ('HR', 0, 'plc1')
 
 class HomePLC1(PLC):
 
-    def pre_loop(self, sleep=0.1):
+    def pre_loop(self, sleep=0.2):
         print('DEBUG: plc1 in preloop')
 
         # temperature = 40
         # self.set(TEMP_SENSOR, temperature)
         time.sleep(sleep)
 
-    def main_loop(self, sleep=0.4):
+    def main_loop(self, sleep=0.5):
         print('DEBUG: plc1 in main loop')
 
         count = 0 
-        while count < CYCLES:
+        while count < CYCLES or not CYCLES:
             temperature = self.get_room_temperature()
             self.set(TEMP_SENSOR, temperature)
 
-            # temperature = self.get(TEMP_SENSOR)
-            self.send(TEMP_SENSOR, temperature, PLC1_ADDR)
-            # print(temperature)
+            # print 'temperature: %d'%(temperature)
+            # temperature = int(self.get(TEMP_SENSOR))
+            
+            print 'temperature: %d'%(temperature)
+            self.send(TEMP_SENSOR, temperature, PLC1_ADDR+':'+PLC1_PORT)
+            
+            # val = self.receive(TEMP_SENSOR, PLC1_ADDR+':'+PLC1_PORT)
+            # print 'revivied: %d'%(val)
 
             count += 1
             time.sleep(sleep)
@@ -56,7 +60,7 @@ if __name__ == '__main__':
     plc1 = HomePLC1(
         name = 'plc1',
         state = STATE,
-        protocol = PLC1_PROTOCOL,
-        memory = PLC1_DATA,
-        disk = PLC1_DATA
+        protocol = PLC1_PROTOCOL
+        # memory = PLC1_DATA,
+        # disk = PLC1_DATA
     )
