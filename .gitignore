@@ -1,4 +1,4 @@
 *.pyc
-logs
+logs/*
 homecps_db.sqlite
 room_temp.config
