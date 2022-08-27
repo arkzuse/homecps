@@ -26,7 +26,7 @@ class HomePLC1(PLC):
             # print 'temperature: %d'%(temperature)
             # temperature = int(self.get(TEMP_SENSOR))
             
-            print 'temperature: %d'%(temperature)
+            print('temperature: {}'.format(temperature))
             self.send(TEMP_SENSOR, temperature, PLC1_ADDR+':'+PLC1_PORT)
             
             # val = self.receive(TEMP_SENSOR, PLC1_ADDR+':'+PLC1_PORT)

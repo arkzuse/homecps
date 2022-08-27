@@ -32,8 +32,8 @@ class HomePLC3(PLC):
             else:
                 ac_state = 1 
             
-            print '-----------'
-            print 'temperature: %d'%(temperature)
+            print('-----------')
+            print('temperature: {}'.format(temperature))
             
             if ac_state:
                 if 28 <= temperature <= 35:
@@ -47,12 +47,12 @@ class HomePLC3(PLC):
                 
                 self.set(AC_TEMP, ac_temp)
                 self.send(AC_TEMP, ac_temp, PLC3_ADDR+':'+PLC3_PORT)
-                print 'ac_temp: %d'%(ac_temp)
+                print('ac_temp: {}'.format(ac_temp))
 
             self.set(AC_STATE, ac_state)
             self.send(AC_STATE, ac_state, PLC3_ADDR+':'+PLC3_PORT)
 
-            print 'ac_state: %d'%(ac_state)
+            print('ac_state: {}'.format(ac_state))
 
             count += 1
             time.sleep(sleep)

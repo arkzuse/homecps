@@ -1,12 +1,12 @@
-# from minicps.utils import build_debug_logger
+from minicps.utils import build_debug_logger
 
-# home = build_debug_logger(
-#     name=__name__,
-#     bytes_per_file=10000,
-#     rotating_files=2,
-#     lformat='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-#     ldir='logs/',
-#     suffix='')
+home = build_debug_logger(
+    name=__name__,
+    bytes_per_file=10000,
+    rotating_files=2,
+    lformat='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    ldir='logs/',
+    suffix='')
 
 #set CYCLES = 0 for infinite loop
 CYCLES = 0

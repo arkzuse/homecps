@@ -39,10 +39,10 @@ class HomePLC2(PLC):
             self.set(CURTAIN, curtain)
             self.set(WINDOW, window)
 
-            print '-----------'
-            print 'temperature %d'%(temperature)
-            print 'curtain: %d'%(curtain)
-            print 'window: %d'%(window)
+            print('-----------')
+            print('temperature {}'.format(temperature))
+            print('curtain: {}'.format(curtain))
+            print('window: {}'.format(window))
 
             count += 1
             time.sleep(sleep)
