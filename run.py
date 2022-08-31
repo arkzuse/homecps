@@ -43,6 +43,6 @@ if __name__ == "__main__":
     topo = HomeTopo()
     net = Mininet(topo=topo)
 
-    swat_s1_cps = HomeCPS(
+    homecps = HomeCPS(
         name='homecps',
         net=net)
