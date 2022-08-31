@@ -49,7 +49,7 @@ class HomePLC2(PLC):
 
 if __name__ == '__main__':
 
-    plc1 = HomePLC2(
+    plc2 = HomePLC2(
         name = 'plc2',
         state = STATE,
         protocol = PLC2_PROTOCOL
